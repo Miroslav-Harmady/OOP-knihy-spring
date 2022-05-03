@@ -3,6 +3,7 @@ package sk.stuba.fei.uim.oop.assignment3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,10 +19,7 @@ public class AuthorService implements IAuthorService{
 
     @Override
     public Author create(AuthorRequest request) {
-        Author createdAuthor = new Author();
-        createdAuthor.setName(request.getName());
-        createdAuthor.setSurname(request.getSurname());
-        createdAuthor.setBooks(0L);
+        Author createdAuthor = new Author(request);
         return this.repository.save(createdAuthor);
 
     }
