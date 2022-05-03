@@ -21,6 +21,12 @@ public class AuthorService implements IAuthorService{
     public Author create(AuthorRequest request) {
         Author createdAuthor = new Author(request);
         return this.repository.save(createdAuthor);
-
     }
+
+    @Override
+    public Author getAuthorById(Long id) {
+        return this.repository.findAuthorById(id);
+    }
+
+
 }

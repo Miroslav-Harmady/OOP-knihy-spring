@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface AuthorRepository extends CrudRepository<Author, Long> {
     List<Author> findAll();
+
+    Author findAuthorById(Long id);
 }
