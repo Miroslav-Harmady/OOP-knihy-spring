@@ -2,7 +2,7 @@ package sk.stuba.fei.uim.oop.assignment3.author.data;
 
 import lombok.Getter;
 import lombok.Setter;
-import sk.stuba.fei.uim.oop.assignment3.Book;
+import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 import sk.stuba.fei.uim.oop.assignment3.author.web.bodies.AuthorRequest;
 
 import javax.persistence.*;
