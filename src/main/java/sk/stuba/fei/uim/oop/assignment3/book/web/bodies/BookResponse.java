@@ -4,7 +4,6 @@ import lombok.Getter;
 import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 
 @Getter
-
 public class BookResponse {
     private Long id;
     private String name;
