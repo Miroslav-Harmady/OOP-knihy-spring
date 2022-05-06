@@ -1,11 +1,13 @@
-package sk.stuba.fei.uim.oop.assignment3;
+package sk.stuba.fei.uim.oop.assignment3.author.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sk.stuba.fei.uim.oop.assignment3.author.web.bodies.AuthorRequest;
+import sk.stuba.fei.uim.oop.assignment3.author.web.bodies.AuthorResponse;
+import sk.stuba.fei.uim.oop.assignment3.author.logic.IAuthorService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,5 +31,15 @@ public class AuthorController {
     @GetMapping("/{id}")
     public AuthorResponse getAuthorById(@PathVariable("id") Long id){
         return new AuthorResponse(this.service.getAuthorById(id));
+    }
+
+    @PutMapping("/{id}")
+    public AuthorResponse updateAuthor(@PathVariable("id") Long id, @RequestBody AuthorRequest request){
+        return new AuthorResponse(this.service.update(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAuthor(@PathVariable("id") Long id){
+        this.service.delete(id);
     }
 }
