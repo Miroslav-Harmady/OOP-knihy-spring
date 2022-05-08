@@ -9,6 +9,7 @@ import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 import sk.stuba.fei.uim.oop.assignment3.book.data.BookRepository;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookAmountRequest;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookRequest;
+import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookUpdateRequest;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class BookService implements IBookService{
     }
 
     @Override
-    public Book updateBook(Long id, BookRequest request) {
+    public Book updateBook(Long id, BookUpdateRequest request) {
         Book bookToUpdate = this.bookRepository.findBookById(id);
         if (request.getName() != null){
             bookToUpdate.setName(request.getName());

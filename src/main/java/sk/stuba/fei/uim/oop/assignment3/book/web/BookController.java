@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sk.stuba.fei.uim.oop.assignment3.book.logic.BookService;
-import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookAmountRequest;
-import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookAmountResponse;
-import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookRequest;
-import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookResponse;
+import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +33,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public BookResponse updateBook(@PathVariable("id") Long id, @RequestBody BookRequest request){
+    public BookResponse updateBook(@PathVariable("id") Long id, @RequestBody BookUpdateRequest request){
         return new BookResponse(this.service.updateBook(id, request));
     }
 
