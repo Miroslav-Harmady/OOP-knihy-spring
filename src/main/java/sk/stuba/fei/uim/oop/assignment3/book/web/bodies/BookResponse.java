@@ -9,15 +9,15 @@ public class BookResponse {
     private String name;
     private String description;
     private Long author;
-    private Integer pages;
-    private Integer amount;
-    private Integer lendCount;
+    private int pages;
+    private int amount;
+    private int lendCount;
 
     public BookResponse(Book book){
         this.id = book.getId();
         this.name = book.getName();
         this.description = book.getDescription();
-        this.author = book.getAuthor();
+        this.author = book.getAuthor().getId();
         this.pages = book.getPages();
         this.amount = book.getAmount();
         this.lendCount = book.getLendCount();

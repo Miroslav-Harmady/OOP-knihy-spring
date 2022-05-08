@@ -27,4 +27,22 @@ public class BookController {
     public ResponseEntity<BookResponse> createBook(@RequestBody BookRequest request){
         return new ResponseEntity<>(new BookResponse(this.service.create(request)),HttpStatus.CREATED);
     }
+
+    @GetMapping("/{id}")
+    public BookResponse getBookById(@PathVariable("id") Long id){
+        return new BookResponse(this.service.getBookById(id));
+    }
+
+    @PutMapping("/{id}")
+    public BookResponse updateBook(@PathVariable("id") Long id, @RequestBody BookRequest request){
+        return new BookResponse(this.service.updateBook(id, request));
+    }
+
+    //sem treba delete book
+
+    @GetMapping("/{id}/amount")
+    public int getBookAmount(@PathVariable("id") Long id){
+        return this.service.getBookAmount(id);
+    }
+
 }
