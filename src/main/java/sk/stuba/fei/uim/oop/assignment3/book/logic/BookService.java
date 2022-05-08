@@ -2,7 +2,9 @@ package sk.stuba.fei.uim.oop.assignment3.book.logic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
 import sk.stuba.fei.uim.oop.assignment3.author.data.AuthorRepository;
+import sk.stuba.fei.uim.oop.assignment3.author.logic.AuthorService;
 import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 import sk.stuba.fei.uim.oop.assignment3.book.data.BookRepository;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookAmountRequest;
@@ -17,7 +19,7 @@ public class BookService implements IBookService{
     private BookRepository bookRepository;
 
     @Autowired
-    private AuthorRepository authorRepository;
+    private AuthorService authorService;
 
     @Override
     public List<Book> getAll() {
@@ -29,10 +31,12 @@ public class BookService implements IBookService{
         Book created = new Book();
         created.setName(request.getName());
         created.setDescription(request.getDescription());
-        created.setAuthor(this.authorRepository.findAuthorById(request.getAuthor()));
+        created.setAuthor(this.authorService.getAuthorById(request.getAuthor()));
         created.setPages(request.getPages());
         created.setAmount(request.getAmount());
         created.setLendCount(request.getLendCount());
+        Author author = this.authorService.getAuthorById(request.getAuthor());
+        author.getBooks().add(created);
         return this.bookRepository.save(created);
     }
 
@@ -51,7 +55,7 @@ public class BookService implements IBookService{
             bookToUpdate.setDescription(request.getDescription());
         }
         if ((request.getAuthor() != null) && (request.getAuthor() != 0)){
-            bookToUpdate.setAuthor(this.authorRepository.findAuthorById(request.getAuthor()));
+            bookToUpdate.setAuthor(this.authorService.getAuthorById(request.getAuthor()));
         }
         if (request.getPages() != 0){
             bookToUpdate.setPages(request.getPages());
