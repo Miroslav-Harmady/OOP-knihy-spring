@@ -52,4 +52,9 @@ public class BookController {
         return new BookAmountResponse(this.service.increaseBookAmount(id, request));
     }
 
+    @GetMapping("/{id}/lendCount")
+    public  BookAmountResponse getBookLnedCount(@PathVariable("id") Long id){
+        return  new BookAmountResponse(this.service.getBookLendCount(id));
+    }
+
 }

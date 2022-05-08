@@ -73,4 +73,10 @@ public class BookService implements IBookService{
         return chosen.getAmount();
     }
 
+    @Override
+    public int getBookLendCount(Long id) {
+        Book chosen = this.bookRepository.findBookById(id);
+        return chosen.getLendCount();
+    }
+
 }

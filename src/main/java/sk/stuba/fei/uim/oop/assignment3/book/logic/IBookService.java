@@ -14,4 +14,5 @@ public interface IBookService {
     //tu deleteBook
     int getBookAmount(Long id);
     int increaseBookAmount(Long id, BookAmountRequest request);
+    int getBookLendCount(Long id);
 }
