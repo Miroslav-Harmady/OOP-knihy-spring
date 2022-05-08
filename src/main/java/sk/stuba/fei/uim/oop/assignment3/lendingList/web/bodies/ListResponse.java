@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 public class ListResponse {
     private Long id;
     private List<BookResponse> lendingList;
-    private boolean lent;
+    private boolean lended;
 
-    ListResponse(LendingList list){
+    public ListResponse(LendingList list){
         this.id = list.getId();
-        this.lendingList = list.getLendingList().stream().map(BookResponse::new).collect(Collectors.toList());
-        this.lent = list.isLent();
+        this.lendingList = list.getList().stream().map(BookResponse::new).collect(Collectors.toList());
+        this.lended = list.isLent();
     }
 }
 
