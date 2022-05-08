@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface LendingListRepository extends CrudRepository<LendingList, Long> {
     List<LendingList> findAll();
+    LendingList getLendingListById(Long id);
 }
