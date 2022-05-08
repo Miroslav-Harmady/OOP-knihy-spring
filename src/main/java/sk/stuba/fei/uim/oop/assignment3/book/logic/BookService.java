@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import sk.stuba.fei.uim.oop.assignment3.author.data.AuthorRepository;
 import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 import sk.stuba.fei.uim.oop.assignment3.book.data.BookRepository;
+import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookAmountRequest;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookRequest;
 
 import java.util.List;
@@ -61,6 +62,14 @@ public class BookService implements IBookService{
     @Override
     public int getBookAmount(Long id) {
         Book chosen = this.bookRepository.findBookById(id);
+        return chosen.getAmount();
+    }
+
+    @Override
+    public int increaseBookAmount(Long id, BookAmountRequest request) {
+        Book chosen = this.bookRepository.findBookById(id);
+        chosen.setAmount(chosen.getAmount() + request.getAmount());
+        this.bookRepository.save(chosen);
         return chosen.getAmount();
     }
 
