@@ -21,5 +21,6 @@ public class LendingList {
 
     public LendingList(){
         this.list = new ArrayList<>();
+        this.lent = false;
     }
 }

@@ -7,5 +7,5 @@ import java.util.List;
 public interface ILendingListService {
     List<LendingList> getAllLists();
     LendingList getListById(Long id);
-    LendingList create();
+    LendingList createList();
 }

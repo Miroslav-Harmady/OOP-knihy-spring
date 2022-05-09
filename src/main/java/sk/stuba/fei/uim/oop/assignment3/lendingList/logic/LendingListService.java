@@ -24,7 +24,7 @@ public class LendingListService implements ILendingListService{
     }
 
     @Override
-    public LendingList create() {
+    public LendingList createList() {
         LendingList created = new LendingList();
         return this.repository.save(created);
     }

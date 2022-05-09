@@ -11,12 +11,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/list")
 public class LendingListController {
 
     @Autowired
     private LendingListService service;
-
-    @RequestMapping("/list")
 
     @GetMapping()
     public List<ListResponse> getAllLists() {
@@ -24,8 +23,8 @@ public class LendingListController {
     }
 
     @PostMapping()
-    public ResponseEntity<ListResponse> createList() {
-        return new ResponseEntity<>(new ListResponse(this.service.create()), HttpStatus.CREATED);
+    public ResponseEntity<ListResponse> createLendingList() {
+        return new ResponseEntity<>(new ListResponse(this.service.createList()), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
