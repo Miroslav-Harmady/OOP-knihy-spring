@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
 import sk.stuba.fei.uim.oop.assignment3.lendingList.logic.LendingListService;
 import sk.stuba.fei.uim.oop.assignment3.lendingList.web.bodies.ListResponse;
 
@@ -28,8 +29,13 @@ public class LendingListController {
     }
 
     @GetMapping("/{id}")
-    public ListResponse getListId(@PathVariable("id") Long id){
+    public ListResponse getListId(@PathVariable("id") Long id) throws NotFoundException {
         return new ListResponse(this.service.getListById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteList(@PathVariable("id") Long id) throws NotFoundException{
+        this.service.deleteList(id);
     }
 
 }

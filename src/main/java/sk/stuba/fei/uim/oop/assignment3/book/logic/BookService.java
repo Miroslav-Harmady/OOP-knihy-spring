@@ -10,6 +10,7 @@ import sk.stuba.fei.uim.oop.assignment3.book.data.BookRepository;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookAmountRequest;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookRequest;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookUpdateRequest;
+import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class BookService implements IBookService{
     }
 
     @Override
-    public Book create(BookRequest request) {
+    public Book create(BookRequest request) throws NotFoundException {
         Book created = new Book();
         created.setName(request.getName());
         created.setDescription(request.getDescription());
@@ -42,13 +43,17 @@ public class BookService implements IBookService{
     }
 
     @Override
-    public Book getBookById(Long id) {
-        return this.bookRepository.findBookById(id);
+    public Book getBookById(Long id) throws  NotFoundException {
+        Book book =  this.bookRepository.findBookById(id);
+        if (book == null){
+            throw new NotFoundException();
+        }
+        return book;
     }
 
     @Override
-    public Book updateBook(Long id, BookUpdateRequest request) {
-        Book bookToUpdate = this.bookRepository.findBookById(id);
+    public Book updateBook(Long id, BookUpdateRequest request) throws  NotFoundException{
+        Book bookToUpdate = this.getBookById(id);
         if (request.getName() != null){
             bookToUpdate.setName(request.getName());
         }
@@ -65,22 +70,30 @@ public class BookService implements IBookService{
     }
 
     @Override
-    public int getBookAmount(Long id) {
-        Book chosen = this.bookRepository.findBookById(id);
+    public void deleteBook(Long id) throws NotFoundException {
+        Book bookToDelete = this.getBookById(id);
+        Author bookAuthor = this.authorService.getAuthorById(bookToDelete.getAuthor().getId());
+        bookAuthor.getBooks().remove(this.getBookById(id));
+        this.bookRepository.delete(bookToDelete);
+    }
+
+    @Override
+    public int getBookAmount(Long id) throws  NotFoundException{
+        Book chosen = this.getBookById(id);
         return chosen.getAmount();
     }
 
     @Override
-    public int increaseBookAmount(Long id, BookAmountRequest request) {
-        Book chosen = this.bookRepository.findBookById(id);
+    public int increaseBookAmount(Long id, BookAmountRequest request) throws  NotFoundException{
+        Book chosen = this.getBookById(id);
         chosen.setAmount(chosen.getAmount() + request.getAmount());
         this.bookRepository.save(chosen);
         return chosen.getAmount();
     }
 
     @Override
-    public int getBookLendCount(Long id) {
-        Book chosen = this.bookRepository.findBookById(id);
+    public int getBookLendCount(Long id) throws  NotFoundException{
+        Book chosen = this.getBookById(id);
         return chosen.getLendCount();
     }
 

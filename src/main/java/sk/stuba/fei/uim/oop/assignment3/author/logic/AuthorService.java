@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import sk.stuba.fei.uim.oop.assignment3.author.web.bodies.AuthorRequest;
 import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
 import sk.stuba.fei.uim.oop.assignment3.author.data.AuthorRepository;
+import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
 
 import java.util.List;
 
@@ -26,12 +27,16 @@ public class AuthorService implements IAuthorService{
     }
 
     @Override
-    public Author getAuthorById(Long id) {
-        return this.repository.findAuthorById(id);
+    public Author getAuthorById(Long id) throws  NotFoundException{
+        Author author = this.repository.findAuthorById(id);
+        if(author == null){
+            throw new NotFoundException();
+        }
+        return author;
     }
 
     @Override
-    public Author update(Long id, AuthorRequest request) {
+    public Author update(Long id, AuthorRequest request) throws  NotFoundException {
         Author author = this.getAuthorById(id);
         if(request.getName() != null){
             author.setName(request.getName());
@@ -43,11 +48,8 @@ public class AuthorService implements IAuthorService{
     }
 
     @Override
-    public void delete(Long id) {
-        Author a = this.repository.findAuthorById(id);
+    public void delete(Long id)throws  NotFoundException {
+        Author a = this.getAuthorById(id);
         this.repository.delete(a);
-        System.out.println(this.repository.existsById(id));
-        //this.repository.deleteById(id);
-
     }
 }

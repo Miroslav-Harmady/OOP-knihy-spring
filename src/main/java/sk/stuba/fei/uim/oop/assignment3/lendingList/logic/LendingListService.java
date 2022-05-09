@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.assignment3.lendingList.logic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
 import sk.stuba.fei.uim.oop.assignment3.lendingList.data.LendingList;
 import sk.stuba.fei.uim.oop.assignment3.lendingList.data.LendingListRepository;
 
@@ -19,13 +20,23 @@ public class LendingListService implements ILendingListService{
     }
 
     @Override
-    public LendingList getListById(Long id) {
-        return this.repository.getLendingListById(id);
+    public LendingList getListById(Long id) throws NotFoundException {
+        LendingList list = this.repository.getLendingListById(id);
+        if (list == null){
+            throw new NotFoundException();
+        }
+        return list;
     }
 
     @Override
     public LendingList createList() {
         LendingList created = new LendingList();
         return this.repository.save(created);
+    }
+
+    @Override
+    public void deleteList(Long id) throws NotFoundException {
+        LendingList list = this.getListById(id);
+        this.repository.delete(list);
     }
 }
