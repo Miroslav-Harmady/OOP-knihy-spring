@@ -6,6 +6,7 @@ import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookResponse;
 import sk.stuba.fei.uim.oop.assignment3.lendingList.data.LendingList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -18,6 +19,7 @@ public class ListResponse {
     public ListResponse(LendingList list){
         this.id = list.getId();
         this.lended = list.isLent();
+        this.lendingList = new ArrayList<>();
         for (Book book : list.getList()) {
             this.lendingList.add(new BookResponse(book));
         }
