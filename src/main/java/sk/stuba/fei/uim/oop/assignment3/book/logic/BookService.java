@@ -30,14 +30,8 @@ public class BookService implements IBookService{
 
     @Override
     public Book create(BookRequest request) throws NotFoundException {
-        Book created = new Book();
-        created.setName(request.getName());
-        created.setDescription(request.getDescription());
-        created.setAuthor(this.authorService.getAuthorById(request.getAuthor()));
-        created.setPages(request.getPages());
-        created.setAmount(request.getAmount());
-        created.setLendCount(request.getLendCount());
         Author author = this.authorService.getAuthorById(request.getAuthor());
+        Book created = new Book(request, author);
         author.getBooks().add(created);
         return this.bookRepository.save(created);
     }
@@ -87,7 +81,6 @@ public class BookService implements IBookService{
     public int increaseBookAmount(Long id, BookAmountRequest request) throws  NotFoundException{
         Book chosen = this.getBookById(id);
         chosen.setAmount(chosen.getAmount() + request.getAmount());
-        this.bookRepository.save(chosen);
         return chosen.getAmount();
     }
 
